@@ -2,7 +2,6 @@
 import { effect } from "../effect";
 import { reactive } from "../reactive";
 describe("effect", () => {
-  //@ts-ignore
   it("reactive", () => {
     const user = reactive({
       age: 10,
@@ -14,5 +13,17 @@ describe("effect", () => {
     expect(age).toBe(11);
     user.age++;
     expect(age).toBe(12);
+  });
+
+  it("should return runner", () => {
+    let foo = 1;
+    const run = effect(() => {
+      foo++;
+      return "runner";
+    });
+    expect(foo).toBe(2);
+    let runner = run();
+    expect(foo).toBe(3);
+    expect(runner).toBe("runner");
   });
 });
